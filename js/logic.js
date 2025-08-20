@@ -133,7 +133,7 @@
     showOverlay();
     resultsContainer.innerHTML = renderLoading();
     openSearch();
-    fetchData('/api/akun?sort=terbaru', null, true);
+    fetchData('https://ranziro-store-server.vercel.app/api/akun?sort=terbaru', null, true);
   }
 
   function performSearch(q) {
@@ -145,7 +145,7 @@
     showOverlay();
     resultsContainer.innerHTML = renderLoading();
     openSearch();
-    fetchData(`/api/search-akun-terjual?q=${encodeURIComponent(q)}&sort=terbaru`, q);
+    fetchData(`https://ranziro-store-server.vercel.app/api/search-akun-terjual?q=${encodeURIComponent(q)}&sort=terbaru`, q);
   }
 
   async function fetchData(url, query = null, isAll = false) {
@@ -239,7 +239,7 @@ function closeMobileMenu() {
 }
   // ===== Ganti tombol login/signup jika login =====
   function replaceAuthButtons() {
-    fetch('/session-check')
+    fetch('https://ranziro-store-server.vercel.app/session-check')
       .then(res => res.json())
       .then(data => {
         if (data.isLoggedIn) {
