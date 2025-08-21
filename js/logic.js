@@ -101,7 +101,7 @@
       akun.nama_akun || akun.id_akun || '',
       AES_KEY
     ).toString());
-    const href = '/akun?nama_akun=' + encryptedName;
+    const href = 'https://ranziro-store-server.vercel.app/akun?nama_akun=' + encryptedName;
 
     return `
       <a href="${href}" class="flex gap-3 items-center p-2 hover:bg-gray-700 transition">
