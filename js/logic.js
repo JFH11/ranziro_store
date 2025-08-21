@@ -114,7 +114,7 @@
     showOverlay();
     resultsContainer.innerHTML = renderLoading();
     openSearch();
-    fetchData('https://ranziro-store.vercel.app/api/akun?sort=terbaru', null, true);
+    fetchData('https://ranziro-store-server.vercel.app/api/akun?sort=terbaru', null, true);
   }
 
   function performSearch(q) {
