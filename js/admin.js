@@ -143,8 +143,8 @@ function showConfirm(message, onConfirm) {
 /* ---------- DATA TABLE (AKUN) ---------- */
 async function loadData() {
   try {
-    const res = await fetch(`/api/akun?sort=${encodeURIComponent(currentSort)}`);
-    if (!res.ok) throw new Error('Gagal fetch /api/akun');
+    const res = await fetch(`https://ranziro-store-server.vercel.app/api/akun?sort=${encodeURIComponent(currentSort)}`);
+    if (!res.ok) throw new Error('Gagal fetch https://ranziro-store-server.vercel.app/api/akun');
     const data = await res.json();
     const tbody = document.getElementById('akun-tbody');
     if (!tbody) return;
@@ -209,7 +209,7 @@ function attachListeners() {
       const status = statusBtn ? statusBtn.textContent.trim() : '';
       const gambar = row.querySelector('img')?.src?.split('/').slice(-2).join('/') || null;
       try {
-        const res = await fetch('/api/update-akun', {
+        const res = await fetch('https://ranziro-store-server.vercel.app/api/update-akun', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id_akun: id, nama_akun: nama, status, gambar })
@@ -226,7 +226,7 @@ function attachListeners() {
     if (btnDelete) btnDelete.onclick = () => {
       showConfirm('Yakin hapus akun ini?', async () => {
         try {
-          const res = await fetch('/api/delete-akun', {
+          const res = await fetch('https://ranziro-store-server.vercel.app/api/delete-akun', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id_akun: id })
@@ -279,7 +279,7 @@ function attachListeners() {
     if (statusEl) fd.append('status', statusEl.value);
 
     try {
-      const res = await fetch('/api/tambah-akun', { method: 'POST', body: fd });
+      const res = await fetch('https://ranziro-store-server.vercel.app/api/tambah-akun', { method: 'POST', body: fd });
       const json = await res.json().catch(()=>({}));
       if (!res.ok) {
         showPopup(json.error || json.message || 'Gagal menyimpan data (server)', 'error');
@@ -290,7 +290,7 @@ function attachListeners() {
       if (previewSingle) previewSingle.innerHTML = '';
       loadData();
     } catch (err) {
-      console.error('Fetch error /api/tambah-akun:', err);
+      console.error('Fetch error https://ranziro-store-server.vercel.app/api/tambah-akun:', err);
       showPopup('Gagal menghubungi server', 'error');
     }
   });
@@ -309,7 +309,7 @@ document.getElementById('update-semua')?.addEventListener('click', async () => {
   });
 
   try {
-    const res = await fetch('/api/update-massal', {
+    const res = await fetch('https://ranziro-store-server.vercel.app/api/update-massal', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: updates })
@@ -325,7 +325,7 @@ document.getElementById('update-semua')?.addEventListener('click', async () => {
 
 document.getElementById('hapus-semua')?.addEventListener('click', async () => {
   try {
-    const res = await fetch('/api/hapus-semua-akun', { method: 'DELETE' });
+    const res = await fetch('https://ranziro-store-server.vercel.app/api/hapus-semua-akun', { method: 'DELETE' });
     const result = await res.json().catch(()=>({}));
     showPopup(result.message || result.error || 'Selesai', res.ok ? 'success' : 'error');
     if (res.ok) loadData();
@@ -337,7 +337,7 @@ document.getElementById('hapus-semua')?.addEventListener('click', async () => {
 
 document.getElementById('lihat-tong-sampah')?.addEventListener('click', async () => {
   try {
-    const res = await fetch(`/api/tong-sampah?sort=${encodeURIComponent(currentSort)}`);
+    const res = await fetch(`https://ranziro-store-server.vercel.app/api/tong-sampah?sort=${encodeURIComponent(currentSort)}`);
     const data = await res.json();
     document.getElementById('tong-sampah-section')?.classList.remove('hidden');
     const body = document.getElementById('tong-sampah-body');
@@ -360,7 +360,7 @@ document.getElementById('lihat-tong-sampah')?.addEventListener('click', async ()
       btn.onclick = async () => {
         const id = btn.dataset.id;
         try {
-          const res = await fetch('/api/restore-akun', {
+          const res = await fetch('https://ranziro-store-server.vercel.app/api/restore-akun', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id_akun: id })
@@ -381,7 +381,7 @@ document.getElementById('lihat-tong-sampah')?.addEventListener('click', async ()
     document.querySelectorAll('.btn-hapus-permanen').forEach(btn => {
       btn.onclick = async () => {
         const id = btn.dataset.id;
-        const res = await fetch('/api/hapus-permanen-satu', {
+        const res = await fetch('https://ranziro-store-server.vercel.app/api/hapus-permanen-satu', {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id_akun: id })
@@ -400,7 +400,7 @@ document.getElementById('lihat-tong-sampah')?.addEventListener('click', async ()
 
 document.getElementById('hapus-permanen')?.addEventListener('click', async () => {
   try {
-    const res = await fetch('/api/hapus-permanen', { method: 'DELETE' });
+    const res = await fetch('https://ranziro-store-server.vercel.app/api/hapus-permanen', { method: 'DELETE' });
     const result = await res.json().catch(()=>({}));
     showPopup(result.message || result.error || 'Selesai', res.ok ? 'success' : 'error');
     if (res.ok) document.getElementById('lihat-tong-sampah')?.click();
@@ -412,7 +412,7 @@ document.getElementById('hapus-permanen')?.addEventListener('click', async () =>
 
 document.getElementById('auto-delete-nonaktif')?.addEventListener('click', async () => {
   try {
-    const res = await fetch('/api/auto-delete-nonaktif', { method: 'DELETE' });
+    const res = await fetch('https://ranziro-store-server.vercel.app/api/auto-delete-nonaktif', { method: 'DELETE' });
     const result = await res.json().catch(()=>({}));
     showPopup(result.message || result.error || 'Selesai', res.ok ? 'success' : 'error');
     if (res.ok) loadData();
@@ -452,7 +452,7 @@ document.getElementById('show-user')?.addEventListener('click', async () => {
   main?.classList.add('animate__animated','animate__fadeIn');
 
   try {
-    const res = await fetch(`/api/users?sort=${encodeURIComponent(currentSort)}`);
+    const res = await fetch(`https://ranziro-store-server.vercel.app/api/users?sort=${encodeURIComponent(currentSort)}`);
     if (!res.ok) throw new Error('Gagal fetch users');
     const users = await res.json();
     const tbody = document.getElementById('user-tbody');
@@ -502,7 +502,7 @@ document.getElementById('show-user')?.addEventListener('click', async () => {
           return;
         }
         showConfirm('Yakin hapus user ini?', async () => {
-          await fetch(`/api/delete-user/${id}`, { method: 'DELETE' });
+          await fetch(`https://ranziro-store-server.vercel.app/api/delete-user/${id}`, { method: 'DELETE' });
           document.getElementById('show-user')?.click();
         });
       });
@@ -526,7 +526,7 @@ document.getElementById('hapus-multi-user')?.addEventListener('click', async () 
     ids.push(cb.value);
   }
   showConfirm(`Yakin hapus ${ids.length} user terpilih?`, async () => {
-    await fetch('/api/delete-users', {
+    await fetch('https://ranziro-store-server.vercel.app/api/delete-users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ids })
@@ -602,7 +602,7 @@ if (formDetailed) {
     const formData = new FormData(form);
     filesArray.forEach(f => formData.append('gambar_akun', f));
     try {
-      const res = await fetch("/api/akun-detailed-only", {
+      const res = await fetch("https://ranziro-store-server.vercel.app/api/akun-detailed-only", {
         method: "POST",
         body: formData
       });
@@ -626,8 +626,8 @@ async function loadGambarAkun() {
   if (!tbody) return;
   tbody.innerHTML = "";
   try {
-    const res = await fetch("/api/gambar-akun");
-    if (!res.ok) throw new Error('Gagal fetch /api/gambar-akun');
+    const res = await fetch("https://ranziro-store-server.vercel.app/api/gambar-akun");
+    if (!res.ok) throw new Error('Gagal fetch https://ranziro-store-server.vercel.app/api/gambar-akun');
     const data = await res.json();
     const akunMap = {};
     data.forEach((item) => {
@@ -663,7 +663,7 @@ async function loadGambarAkun() {
       btnHapus.addEventListener("click", () => {
         showConfirm(`Yakin ingin hapus semua data untuk akun "${namaAkun}"?`, async () => {
           try {
-            const res = await fetch(`/api/akun-detail/${encodeURIComponent(namaAkun)}`, { method: "DELETE" });
+            const res = await fetch(`https://ranziro-store-server.vercel.app/api/akun-detail/${encodeURIComponent(namaAkun)}`, { method: "DELETE" });
             const data = await res.json().catch(()=>({}));
             showPopup(data.message || data.error || 'Selesai', res.ok ? 'success' : 'error');
             if (res.ok) loadGambarAkun();
@@ -687,7 +687,7 @@ async function loadGambarAkun() {
 /* ---------- LOAD TABEL GAMBAR AKUN DETAILED (sortable & hapus per gambar) ---------- */
 async function loadTabelGambarAkunDetailed() {
   try {
-    const res = await fetch('/api/gambar-akun-detailed-all');
+    const res = await fetch('https://ranziro-store-server.vercel.app/api/gambar-akun-detailed-all');
     if (!res.ok) { showPopup('Gagal ambil gambar akun', 'error'); return; }
     const data = await res.json();
     const tbody = document.getElementById('gambar-akun-tbody');
@@ -729,7 +729,7 @@ async function loadTabelGambarAkunDetailed() {
           onEnd: async () => {
             const urutanBaru = Array.from(container.querySelectorAll('[data-file]')).map(el => el.dataset.file);
             try {
-              const resp = await fetch('/api/gambar-akun-detailed/urut', {
+              const resp = await fetch('https://ranziro-store-server.vercel.app/api/gambar-akun-detailed/urut', {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ nama_akun: namaAkun, urutanBaru })
@@ -751,7 +751,7 @@ async function loadTabelGambarAkunDetailed() {
           const file = btn.closest('[data-file]').dataset.file;
           if (!await showConfirm('Yakin hapus gambar ini?')) return;
           try {
-            const resp = await fetch('/api/gambar-akun-detailed', {
+            const resp = await fetch('https://ranziro-store-server.vercel.app/api/gambar-akun-detailed', {
               method: 'DELETE',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ nama_akun: namaAkun, nama_file: file })
@@ -794,7 +794,7 @@ async function submitCreateAkun(formEl) {
     const status = mapStatusToEnum(rawStatus);
     const payload = { nama_akun, id_akun, gambar, status };
 
-    const res = await fetch('/api/akun', {
+    const res = await fetch('https://ranziro-store-server.vercel.app/api/akun', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -821,7 +821,7 @@ async function submitUpdateDetail(formEl, akun_id) {
       if (el && el.value !== '') body[k] = el.value;
     });
 
-    const res = await fetch(`/api/akun-detailed/${akun_id}`, {
+    const res = await fetch(`https://ranziro-store-server.vercel.app/api/akun-detailed/${akun_id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)

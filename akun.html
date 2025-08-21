@@ -513,11 +513,11 @@ function setupSliderBehavior() {
 
   try {
     let detail = null;
-    try { detail = await fetchJson(`/api/akun-detailed?nama_akun=${encodeURIComponent(namaRaw)}`); } catch (err) { console.warn('GET /api/akun-detailed error:', err.message || err); }
+    try { detail = await fetchJson(`https://ranziro-store-server.vercel.app/api/akun-detailed?nama_akun=${encodeURIComponent(namaRaw)}`); } catch (err) { console.warn('GET /api/akun-detailed error:', err.message || err); }
 
     let gambarList = [];
-    try { gambarList = await fetchJson(`/api/gambar-akun?nama_akun=${encodeURIComponent(namaRaw)}`); } catch (err) {
-      console.warn('GET /api/gambar-akun failed, fallback to all then filter:', err.message || err);
+    try { gambarList = await fetchJson(`https://ranziro-store-server.vercel.app/api/gambar-akun?nama_akun=${encodeURIComponent(namaRaw)}`); } catch (err) {
+      console.warn('GET https://ranziro-store-server.vercel.app/api/gambar-akun failed, fallback to all then filter:', err.message || err);
       try {
         const all = await fetchJson('/api/gambar-akun');
         gambarList = Array.isArray(all) ? all.filter(g => String(g.nama_akun||'').toLowerCase().trim() === String(namaRaw).toLowerCase().trim()) : [];
@@ -526,7 +526,7 @@ function setupSliderBehavior() {
 
     if (!detail) {
       try {
-        const all = await fetchJson('/api/akun');
+        const all = await fetchJson('https://ranziro-store-server.vercel.app/api/akun');
         detail = (Array.isArray(all) ? all.find(a => {
           return (String(a.nama_akun || '').toLowerCase().trim() === String(namaRaw).toLowerCase().trim())
               || (String(a.id_akun || '').toLowerCase().trim() === String(namaRaw).toLowerCase().trim());
