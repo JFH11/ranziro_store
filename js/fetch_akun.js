@@ -168,7 +168,7 @@ function renderCards(status) {
 async function loadAkun() {
   try {
     const sort = localStorage.getItem('sort_preference') || 'terbaru';
-    const res = await fetch(`/api/akun?sort=${encodeURIComponent(sort)}`);
+    const res = await fetch(`https://ranziro-store-server.vercel.app/api/akun?sort=${encodeURIComponent(sort)}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
