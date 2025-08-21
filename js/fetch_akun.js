@@ -72,7 +72,7 @@ function appendCards(status, startIdx, endIdx) {
 
     // create anchor card (neutral class .account-card so no click-bounce CSS applies)
     const a = document.createElement('a');
-    a.href = `/akun?nama_akun=${encryptedName}`;
+    a.href = `https://ranziro-store.vercel.app/akun?nama_akun=${encryptedName}`;
     a.className = 'account-card relative group w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-gray-800 transition-all cursor-pointer focus:outline-none';
     a.setAttribute('role', 'link');
 
