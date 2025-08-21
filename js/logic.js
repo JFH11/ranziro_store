@@ -1,14 +1,5 @@
-// logic.js - Optimized + Smooth Animations + AES Encryption
+// logic.js - Optimized + Smooth Animations (NO ENCRYPTION)
 (() => {
-  // ===== Tambah CryptoJS untuk AES =====
-  if (typeof CryptoJS === "undefined") {
-    const script = document.createElement("script");
-    script.src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js";
-    document.head.appendChild(script);
-  }
-
-  const AES_KEY = "aowkaowmsoejseojwsih392822833jsdnd";
-
   // ===== Cache DOM elements =====
   const overlay = createOverlay();
   const searchInputs = Array.from(document.querySelectorAll('input[placeholder="Cari game..."]'));
@@ -16,7 +7,7 @@
   const mobileMenu = document.getElementById('mobile-menu');
   let resultsContainer = null;
 
-  const searchCache = new Map(); // Cache hasil search
+  const searchCache = new Map();
 
   // ===== Overlay =====
   function createOverlay() {
@@ -35,14 +26,12 @@
 
   function showOverlay() {
     overlay.style.display = 'block';
-    requestAnimationFrame(() => {
-      overlay.style.opacity = '1';
-    });
+    requestAnimationFrame(() => overlay.style.opacity = '1');
   }
 
   function hideOverlay() {
     overlay.style.opacity = '0';
-    setTimeout(() => { overlay.style.display = 'none'; }, 200);
+    setTimeout(() => overlay.style.display = 'none', 200);
   }
 
   overlay.addEventListener('click', () => {
@@ -78,7 +67,6 @@
       input.addEventListener('input', e => debouncedSearch(e.target.value.trim()));
     });
 
-    // Reset search saat kembali dari /akun
     window.addEventListener('pageshow', () => {
       clearSearch();
       hideOverlay();
@@ -88,21 +76,14 @@
   function adjustResultsWidth() {
     const headerHeight = document.querySelector('header')?.offsetHeight || 64;
     resultsContainer.style.top = `${headerHeight}px`;
-    resultsContainer.style.width = window.innerWidth < 768
-      ? 'calc(100vw - 32px)'
-      : '50%';
+    resultsContainer.style.width = window.innerWidth < 768 ? 'calc(100vw - 32px)' : '50%';
   }
- 
+
   function renderCard(akun) {
     const gambar = akun.gambar ? '/img/' + akun.gambar : '/img/placeholder.webp';
     const name = escapeHtml(akun.nama_akun || akun.id_akun || 'Akun');
     const id = escapeHtml(akun.id_akun || '');
-    const encryptedName = encodeURIComponent(CryptoJS.AES.encrypt(
-      akun.nama_akun || akun.id_akun || '',
-      AES_KEY
-    ).toString());
-    const href = 'https://ranziro-store-server.vercel.app/akun?nama_akun=' + encryptedName;
-
+    const href = 'https://ranziro-store-server.vercel.app/akun?nama_akun=' + encodeURIComponent(akun.nama_akun || akun.id_akun || '');
     return `
       <a href="${href}" class="flex gap-3 items-center p-2 hover:bg-gray-700 transition">
         <img src="${escapeHtml(gambar)}" alt="${name}" class="w-12 h-12 object-cover rounded" />
@@ -179,7 +160,6 @@
     searchInputs.forEach(inp => inp.value = '');
   }
 
-  // ===== Animasi Search =====
   function openSearch() {
     resultsContainer.classList.remove('hidden');
     requestAnimationFrame(() => {
@@ -191,23 +171,14 @@
   function closeSearch() {
     resultsContainer.style.opacity = '0';
     resultsContainer.style.transform = 'translateX(-50%) translateY(-10px)';
-    setTimeout(() => {
-      resultsContainer.classList.add('hidden');
-    }, 200);
+    setTimeout(() => resultsContainer.classList.add('hidden'), 200);
   }
 
-  // ===== Menu Toggle =====
   function initMenu() {
     if (!menuBtn || !mobileMenu) return;
-
     menuBtn.addEventListener('click', () => {
       if (!resultsContainer.classList.contains('hidden')) closeSearch();
-
-      if (mobileMenu.classList.contains('hidden')) {
-        openMobileMenu();
-      } else {
-        closeMobileMenu();
-      }
+      mobileMenu.classList.contains('hidden') ? openMobileMenu() : closeMobileMenu();
     });
   }
 
@@ -223,21 +194,18 @@
     });
   }
 
-function closeMobileMenu() {
-  if (mobileMenu) {
-    mobileMenu.style.transition = 'opacity 200ms ease, transform 200ms ease';
-    mobileMenu.style.opacity = '0';
-    mobileMenu.style.transform = 'translateY(-10px)';
-    setTimeout(() => {
-      mobileMenu.classList.add('hidden');
-      hideOverlay();
-    }, 200);
-  } else {
-    // Kalau nggak ada mobileMenu, tetap hilangkan overlay
-    hideOverlay();
+  function closeMobileMenu() {
+    if (mobileMenu) {
+      mobileMenu.style.transition = 'opacity 200ms ease, transform 200ms ease';
+      mobileMenu.style.opacity = '0';
+      mobileMenu.style.transform = 'translateY(-10px)';
+      setTimeout(() => {
+        mobileMenu.classList.add('hidden');
+        hideOverlay();
+      }, 200);
+    } else hideOverlay();
   }
-}
-  // ===== Ganti tombol login/signup jika login =====
+
   function replaceAuthButtons() {
     fetch('https://ranziro-store-server.vercel.app/session-check')
       .then(res => res.json())
@@ -253,7 +221,6 @@ function closeMobileMenu() {
       .catch(() => {});
   }
 
-  // ===== Debounce =====
   function debounce(fn, wait = 300) {
     let t;
     return (...args) => {
@@ -262,7 +229,6 @@ function closeMobileMenu() {
     };
   }
 
-  // ===== Init =====
   document.addEventListener('DOMContentLoaded', () => {
     initSearch();
     initMenu();

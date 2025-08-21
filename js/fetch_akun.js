@@ -1,6 +1,5 @@
-/* fetch_akun.js (no press/bounce, remove white focus/tap highlight)
+/* fetch_akun.js (NO ENCRYPTION)
    - incremental append, one-by-one entrance animation
-   - AES encrypt for nama_akun (CryptoJS must be loaded on page)
    - Removes white focus outline and mobile tap highlight for .account-card
 */
 
@@ -23,7 +22,6 @@ const baseImageUrl = '/img/';
 const showMoreCount = 10;
 const ANIM_DELAY = 200; // ms gap between entrance animations (stagger)
 const ANIM_DUR = 800;   // ms entrance animation duration
-const AES_KEY = "aowkaowmsoejseojwsih392822833jsdnd";
 
 let akunData = { available: [], sold: [], hacked: [] };
 let shownCount = { available: 0, sold: 0, hacked: 0 };
@@ -37,15 +35,6 @@ function escapeHtml(unsafe) {
     .replace(/>/g, '&gt;')
     .replace(/\"/g, '&quot;')
     .replace(/'/g, '&#039;');
-}
-
-function encryptParam(text) {
-  try {
-    return encodeURIComponent(CryptoJS.AES.encrypt(text, AES_KEY).toString());
-  } catch (e) {
-    console.error("Encrypt error:", e);
-    return encodeURIComponent(text || '');
-  }
 }
 
 const normalizeStatus = s => {
@@ -67,19 +56,17 @@ function appendCards(status, startIdx, endIdx) {
   for (let i = startIdx; i <= endIdx && i < list.length; i++) {
     const akun = list[i];
     const namaSafe = akun.nama_akun || akun.id_akun || 'akun';
-    const encryptedName = encryptParam(namaSafe);
+    const encodedName = encodeURIComponent(namaSafe);
     const gambarSrc = akun.gambar ? (baseImageUrl + akun.gambar) : '/img/placeholder.webp';
 
-    // create anchor card (neutral class .account-card so no click-bounce CSS applies)
+    // create anchor card
     const a = document.createElement('a');
-    a.href = `https://ranziro-store-server.vercel.app/akun?nama_akun=${encryptedName}`;
+    a.href = `https://ranziro-store-server.vercel.app/akun?nama_akun=${encodedName}`;
     a.className = 'account-card relative group w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-gray-800 transition-all cursor-pointer focus:outline-none';
     a.setAttribute('role', 'link');
 
-    // ensure anchor doesn't show weird outline by inline safe styles as fallback
     a.style.outline = 'none';
     a.style.boxShadow = 'none';
-    // set attribute to allow keyboard focus (keep accessible)
     a.setAttribute('tabindex', '0');
 
     a.innerHTML = `
@@ -100,26 +87,13 @@ function appendCards(status, startIdx, endIdx) {
       </span>
     `;
 
-    // append and collect
     grid.appendChild(a);
     newEls.push(a);
 
-    // Accessibility: remove outline if focused via mouse (but keep keyboard focus visible if desired)
     a.addEventListener('mousedown', () => { a.style.outline = 'none'; });
     a.addEventListener('focus', () => { a.style.outline = 'none'; });
-
-    // Some browsers may draw an inner focus ring; as extra precaution remove it on focus-visible
-    a.addEventListener('keydown', (ev) => {
-      // keep keyboard navigation possible; no visual outline required here per request
-      if (ev.key === 'Enter') {
-        // default click will navigate
-      }
-    });
-
-    // NO press/click handler — let browser handle navigation immediately
   }
 
-  // entrance animation (staggered) - rely on animate.css
   const prev = parseInt(grid.dataset.rendered || '0', 10) || 0;
   newEls.forEach((el, idx) => {
     el.classList.remove('animate__animated', 'animate__fadeInUp');
@@ -131,10 +105,8 @@ function appendCards(status, startIdx, endIdx) {
     el.style.animationDuration = `${ANIM_DUR}ms`;
   });
 
-  // update rendered count
   grid.dataset.rendered = prev + newEls.length;
 
-  // toggle show-more button
   const showMoreBtn = document.querySelector(`.show-more-btn[data-status="${status}"]`);
   if (showMoreBtn) {
     if ((akunData[status] || []).length > (prev + newEls.length)) showMoreBtn.classList.remove('hidden');

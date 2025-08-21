@@ -13,82 +13,11 @@
   <link rel="stylesheet" href="assets/loader.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script><script>window.sb=supabase.createClient("https://lzycriwqrcqbiijtiipa.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6eWNyaXdxcmNxYmlpanRpaXBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyMDk1NjQsImV4cCI6MjA2OTc4NTU2NH0.PLjC9pd38W1m8tC81RQmoW0eYfWq814g_y3P74jd-B0");</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+  <script>
+    window.sb = supabase.createClient("https://lzycriwqrcqbiijtiipa.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx6eWNyaXdxcmNxYmlpanRpaXBhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyMDk1NjQsImV4cCI6MjA2OTc4NTU2NH0.PLjC9pd38W1m8tC81RQmoW0eYfWq814g_y3P74jd-B0");
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-
-  <style>
-    /* Slider custom styles */
-    #slider-viewport { position: relative; overflow: hidden; }
-    #slider-track {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      transition: transform 700ms cubic-bezier(.22,.9,.33,1);
-      will-change: transform;
-      touch-action: pan-y;
-      user-select: none;
-    }
-    .slide {
-      min-width: 100%;
-      height: 100%;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 700ms cubic-bezier(.22,.9,.33,1);
-    }
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 0.5rem;
-      transition: transform 600ms cubic-bezier(.22,.9,.33,1);
-      will-change: transform;
-      cursor: pointer;
-      display: block;
-      user-select: none;
-      /* transparency removed: always fully opaque */
-      opacity: 1;
-    }
-    .slide.is-active img { transform: scale(1.03); }
-
-    /* indicators (dots) */
-    .slider-indicators {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 10px;
-      display: flex;
-      gap: 8px;
-      z-index: 20;
-      align-items: center;
-    }
-    .slider-indicators button {
-      width: 10px;
-      height: 10px;
-      border-radius: 9999px;
-      background: rgba(255,255,255,0.35);
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      transition: transform 160ms ease, background 160ms ease;
-    }
-    .slider-indicators button.active {
-      background: rgba(255,255,255,0.95);
-      transform: scale(1.25);
-    }
-
-    /* Modal zoom smooth (kept lightweight) */
-    #image-modal { opacity: 0; transition: opacity 320ms ease; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); pointer-events: none; }
-    #image-modal.open { opacity: 1; pointer-events: auto; }
-    #image-modal .modal-inner { width: 92%; max-width: 960px; transform: translateY(10px) scale(0.95); opacity: 0; transition: transform 420ms cubic-bezier(.22,.9,.33,1), opacity 320ms ease; pointer-events: none; z-index: 20; margin: 0 auto; }
-    #image-modal.open .modal-inner { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
-    #image-modal img#modal-img { transform: scale(0.98); transition: transform 420ms cubic-bezier(.22,.9,.33,1); border-radius: 8px; }
-    #image-modal.open img#modal-img { transform: scale(1); }
-    #modal-close-btn { background: transparent; border: none; }
-    #image-modal .modal-backdrop-sizer { position: absolute; inset: 0; z-index: 10; }
-  </style>
 </head>
 
 <body class="bg-gray-900 text-white">
@@ -166,7 +95,7 @@
 
 </main>
 
-<!-- Modal (initially hidden via Tailwind 'hidden' class) -->
+<!-- Modal -->
 <div id="image-modal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50" aria-hidden="true" role="dialog">
   <div class="modal-backdrop-sizer absolute inset-0"></div>
   <div class="modal-inner relative max-w-4xl w-full p-4 pointer-events-none mx-auto">
@@ -177,94 +106,26 @@
   </div>
 </div>
 
-    <footer class="bg-gray-900 border-t border-gray-800 pt-16 pb-8">
-        <div class="container mx-auto px-4 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+<footer class="bg-gray-900 border-t border-gray-800 pt-16 pb-8">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <!-- About RanziroStore -->
+      <div class="md:col-span-2 lg:col-span-1">
+        <h3 class="text-2xl font-extrabold text-white mb-4">
+          Ranziro<span class="text-indigo-500">Store</span>
+        </h3>
+        <p class="text-gray-400 text-sm">
+          Platform top up game termurah, tercepat, dan terpercaya di Indonesia.
+        </p>
+      </div>
+    </div>
 
-                <!-- 1. About RanziroStore -->
-                <div class="md:col-span-2 lg:col-span-1">
-                    <h3 class="text-2xl font-extrabold text-white mb-4">
-                        Ranziro<span class="text-indigo-500">Store</span>
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                        Platform top up game termurah, tercepat, dan terpercaya di Indonesia. Menyediakan berbagai macam
-                        produk game populer dengan proses instan 24 jam untuk pengalaman gaming tanpa batas.
-                    </p>
-                </div>
-
-                <!-- 2. Peta Situs & Legalitas -->
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Peta Situs</h4>
-                    <ul class="space-y-3 mb-6">
-                        <li><a href="#produk" class="text-gray-400 hover:text-indigo-400 transition-colors">Produk</a>
-                        </li>
-                        <li><a href="#cara-topup" class="text-gray-400 hover:text-indigo-400 transition-colors">Cara Top
-                                Up</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Lacak Pesanan</a>
-                        </li>
-                        <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Masuk</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Daftar</a></li>
-                    </ul>
-
-                    <h4 class="text-lg font-semibold text-white mb-4">Legalitas</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Syarat &
-                                Ketentuan</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Kebijakan
-                                Privasi</a></li>
-                    </ul>
-                </div>
-
-                <!-- 3. Sosial Media & Search -->
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Ikuti Kami</h4>
-                    <div class="flex space-x-4 mb-6">
-                        <a href="#" aria-label="YouTube"
-                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-red-600 hover:text-white transition-all duration-300">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        <a href="#" aria-label="Instagram"
-                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-pink-600 hover:text-white transition-all duration-300">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" aria-label="TikTok"
-                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:bg-black hover:text-white transition-all duration-300">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
-                    </div>
-
-                    <h4 class="text-lg font-semibold text-white mb-4">Cari Produk</h4>
-                    <div class="relative">
-                        <input type="text" placeholder="Cari di sini..."
-                            class="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                        <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-indigo-400">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 4. Feedback Form -->
-                <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Beri Masukan</h4>
-                    <form action="#" method="POST">
-                        <textarea name="feedback" rows="4" placeholder="Tuliskan masukan Anda untuk kami..."
-                            class="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-3 text-sm"></textarea>
-                        <button type="submit"
-                            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg transition-colors duration-300">
-                            Kirim Masukan
-                        </button>
-                    </form>
-                </div>
-
-            </div>
-
-<!-- Copyright & Last Access -->
-<div class="mt-12 border-t border-gray-800 pt-8 flex justify-between items-center text-gray-500 text-sm">
-  <p>&copy; <span id="year"></span>. RanziroStore</p>
-  <p>Terakhir diakses pada <span id="lastAccess"></span></p>
-</div>
-</div>
-    </footer>
+    <div class="mt-12 border-t border-gray-800 pt-8 flex justify-between items-center text-gray-500 text-sm">
+      <p>&copy; <span id="year"></span>. RanziroStore</p>
+      <p>Terakhir diakses pada <span id="lastAccess"></span></p>
+    </div>
+  </div>
+</footer>
 
 <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-50 w-12 h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg transition-opacity duration-300 flex items-center justify-center">
   <i class="fas fa-arrow-up text-xl"></i>
@@ -272,15 +133,6 @@
 
 <script>
 /* ---------- Helpers ---------- */
-function decryptParam(cipherText) {
-  try {
-    const bytes = CryptoJS.AES.decrypt(decodeURIComponent(cipherText), "aowkaowmsoejseojwsih392822833jsdnd");
-    return bytes.toString(CryptoJS.enc.Utf8);
-  } catch (e) {
-    console.error("Gagal decrypt:", e);
-    return null;
-  }
-}
 function sanitizeName(name) { return String(name || '').trim(); }
 async function fetchJson(url) {
   const r = await fetch(url);
@@ -295,220 +147,12 @@ async function fetchJson(url) {
 function setText(selector, text) { const el = document.querySelector(selector); if (el) el.textContent = text ?? ''; }
 function formatCurrency(num) { if (num == null || num === '') return '-'; return `Rp ${Number(num).toLocaleString('id-ID')}`; }
 
-/* ---------- Modal open/close (smooth) ---------- */
-(function () {
-  const modal = document.getElementById('image-modal');
-  const modalImg = document.getElementById('modal-img');
-  const closeBtn = document.getElementById('modal-close-btn');
-  const backdrop = modal && modal.querySelector('.modal-backdrop-sizer');
-  const TRANSITION_MS = 420;
-  let escHandler = null;
-
-  function lockBodyScroll() { document.documentElement.style.overflow = 'hidden'; document.body.style.overflow = 'hidden'; }
-  function unlockBodyScroll() { document.documentElement.style.overflow = ''; document.body.style.overflow = ''; }
-
-  window.openModal = function (src) {
-    if (!modal || !modalImg) return;
-    modal.classList.remove('hidden');
-    modalImg.src = src;
-    requestAnimationFrame(() => modal.classList.add('open'));
-    modal.setAttribute('aria-hidden', 'false');
-    lockBodyScroll();
-    escHandler = function (e) { if (e.key === 'Escape') closeModal(); };
-    window.addEventListener('keydown', escHandler);
-  };
-
-  window.closeModal = function () {
-    if (!modal || !modalImg) return;
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-    if (escHandler) { window.removeEventListener('keydown', escHandler); escHandler = null; }
-    setTimeout(() => {
-      try { modalImg.src = ''; } catch (e) {}
-      modal.classList.add('hidden');
-      unlockBodyScroll();
-    }, TRANSITION_MS + 40);
-  };
-
-  if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeModal(); });
-  if (backdrop) backdrop.addEventListener('click', () => closeModal());
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      const inner = modal.querySelector('.modal-inner');
-      if (!inner) return;
-      if (!inner.contains(e.target)) closeModal();
-    });
-  }
-  modalImg?.addEventListener('click', (e) => { e.stopPropagation(); });
-})();
-
-/* ---------- Slider behavior (no autoplay, dots clickable, drag snap per-index) ---------- */
-function setupSliderBehavior() {
-  const viewport = document.getElementById('slider-viewport');
-  const track = document.getElementById('slider-track');
-  const indicatorsEl = document.getElementById('slider-indicators');
-  if (!viewport || !track || !indicatorsEl) return;
-
-  // ensure slides exist
-  let slides = Array.from(track.children).filter(ch => ch.classList.contains('slide'));
-  // if server injected images without wrapper, wrap them
-  if (slides.length === 0 && track.children.length > 0) {
-    const nodes = Array.from(track.children);
-    track.innerHTML = '';
-    nodes.forEach(n => {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'slide';
-      wrapper.appendChild(n);
-      track.appendChild(wrapper);
-    });
-    slides = Array.from(track.children);
-  }
-
-  if (slides.length === 0) {
-    const placeholder = document.createElement('div');
-    placeholder.className = 'slide';
-    placeholder.innerHTML = '<img src="/img/placeholder.webp" alt="no image">';
-    track.appendChild(placeholder);
-    slides = [placeholder];
-  }
-
-  let index = 0;
-  const DRAG_THRESHOLD = 50; // px
-  let isDragging = false;
-  let startX = 0;
-  let lastPct = 0;
-  let pointerId = null;
-  const MAX_OVER_PCT = 30; // allow small overdrag
-
-  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
-
-  function setTrackPercent(pct, animate = true) {
-    track.style.transition = animate ? 'transform 700ms cubic-bezier(.22,.9,.33,1)' : 'none';
-    track.style.transform = `translateX(${pct}%)`;
-  }
-
-  function goToIndex(i, animate = true) {
-    index = clamp(i, 0, slides.length - 1);
-    const pct = -index * 100;
-    setTrackPercent(pct, animate);
-    updateActive();
-    updateDots();
-  }
-
-  function updateActive() {
-    slides.forEach((s, idx) => s.classList.toggle('is-active', idx === index));
-  }
-
-  function buildDots() {
-    indicatorsEl.innerHTML = '';
-    slides.forEach((s, i) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      if (i === index) btn.classList.add('active');
-      btn.setAttribute('aria-label', `Slide ${i+1}`);
-      btn.addEventListener('click', () => { goToIndex(i, true); });
-      indicatorsEl.appendChild(btn);
-    });
-  }
-
-  function updateDots() {
-    const btns = Array.from(indicatorsEl.children);
-    btns.forEach((b, i) => b.classList.toggle('active', i === index));
-  }
-
-  function onPointerDown(e) {
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-    pointerId = e.pointerId;
-    try { viewport.setPointerCapture(pointerId); } catch (err) {}
-    startX = e.clientX;
-    isDragging = false;
-    lastPct = -index * 100;
-    track.style.transition = 'none';
-  }
-
-  function onPointerMove(e) {
-    if (pointerId !== e.pointerId) return;
-    const dx = e.clientX - startX;
-    if (!isDragging && Math.abs(dx) > 6) isDragging = true;
-    if (!isDragging) return;
-    const w = viewport.clientWidth || 1;
-    const dxPct = (dx / w) * 100;
-    let newPct = lastPct + dxPct;
-    // clamp with overdrag allowance
-    const minPct = - (slides.length - 1) * 100 - MAX_OVER_PCT;
-    const maxPct = 0 + MAX_OVER_PCT;
-    newPct = clamp(newPct, minPct, maxPct);
-    setTrackPercent(newPct, false);
-    // prevent page scrolling while dragging horizontally
-    try { e.preventDefault(); } catch (err) {}
-  }
-
-  function onPointerUp(e) {
-    if (pointerId !== e.pointerId) return;
-    try { viewport.releasePointerCapture(pointerId); } catch (err) {}
-    const dx = e.clientX - startX;
-    if (isDragging && Math.abs(dx) > DRAG_THRESHOLD) {
-      if (dx < 0) goToIndex(index + 1, true);
-      else goToIndex(index - 1, true);
-    } else {
-      goToIndex(index, true);
-    }
-    isDragging = false;
-  }
-
-  function onPointerCancel(e) {
-    if (pointerId !== e.pointerId) return;
-    try { viewport.releasePointerCapture(pointerId); } catch (err) {}
-    goToIndex(index, true);
-    isDragging = false;
-  }
-
-  function onKey(e) {
-    if (e.key === 'ArrowLeft') goToIndex(index - 1, true);
-    if (e.key === 'ArrowRight') goToIndex(index + 1, true);
-  }
-
-  // attach click on images to open modal (only if not dragging)
-  track.addEventListener('click', (e) => {
-    if (isDragging) return;
-    const img = e.target.closest('img');
-    if (img && window.openModal) window.openModal(img.src);
-  });
-
-  // finalize setup
-  buildDots();
-  updateActive();
-  goToIndex(0, false);
-
-  // pointer events (pointermove must be non-passive to allow preventDefault)
-  viewport.addEventListener('pointerdown', onPointerDown);
-  viewport.addEventListener('pointermove', onPointerMove, { passive: false });
-  viewport.addEventListener('pointerup', onPointerUp);
-  viewport.addEventListener('pointercancel', onPointerCancel);
-  window.addEventListener('keydown', onKey);
-  window.addEventListener('resize', () => goToIndex(index, false));
-
-  // expose simple API (optional)
-  return {
-    goTo: goToIndex,
-    next: () => goToIndex(index + 1, true),
-    prev: () => goToIndex(index - 1, true),
-    destroy: () => {
-      viewport.removeEventListener('pointerdown', onPointerDown);
-      viewport.removeEventListener('pointermove', onPointerMove);
-      viewport.removeEventListener('pointerup', onPointerUp);
-      viewport.removeEventListener('pointercancel', onPointerCancel);
-      window.removeEventListener('keydown', onKey);
-    }
-  };
-}
-
 /* ---------- Page init: fetch detail & images ---------- */
 (async function initAkunDetail() {
   const params = new URLSearchParams(location.search);
   const namaParam = params.get('nama_akun');
   if (!namaParam) { setText('.nama-akun', 'Nama akun tidak ditemukan'); return; }
-  const namaRaw = decryptParam(namaParam) || namaParam;
+  const namaRaw = decodeURIComponent(namaParam); // langsung pakai, tanpa decrypt
   setText('.nama-akun', namaRaw);
 
   try {
@@ -517,11 +161,11 @@ function setupSliderBehavior() {
 
     let gambarList = [];
     try { gambarList = await fetchJson(`https://ranziro-store-server.vercel.app/api/gambar-akun?nama_akun=${encodeURIComponent(namaRaw)}`); } catch (err) {
-      console.warn('GET https://ranziro-store-server.vercel.app/api/gambar-akun failed, fallback to all then filter:', err.message || err);
+      console.warn('GET gambar-akun failed, fallback ke all:', err.message || err);
       try {
         const all = await fetchJson('/api/gambar-akun');
         gambarList = Array.isArray(all) ? all.filter(g => String(g.nama_akun||'').toLowerCase().trim() === String(namaRaw).toLowerCase().trim()) : [];
-      } catch (e2) { console.warn('Fallback all gambar failed:', e2); gambarList = []; }
+      } catch (e2) { console.warn('Fallback gambar failed:', e2); gambarList = []; }
     }
 
     if (!detail) {
@@ -587,36 +231,6 @@ function setupSliderBehavior() {
       }
     }
 
-    // initialize slider (no autoplay)
-    setupSliderBehavior();
-
-    // set WA link (fallback number is 6285863146541)
-    try {
-      const pageUrl = window.location.href;
-      const waLink = (function(detailInner, namaRawInner){
-        const phoneRaw = (detailInner && detailInner.wa) ? String(detailInner.wa).replace(/\D/g,'') : '';
-        const phone = phoneRaw || '6285863146541';
-        const nama = (detailInner && detailInner.nama_akun) ? detailInner.nama_akun : namaRawInner;
-        const idAkun = (detailInner && (detailInner.master_id_akun || detailInner.id_akun)) ? (detailInner.master_id_akun || detailInner.id_akun) : '';
-        let deskripsi = (detailInner && detailInner.deskripsi) ? String(detailInner.deskripsi) : '';
-        const harga = (detailInner && detailInner.harga) ? formatCurrency(detailInner.harga) : '';
-        if (deskripsi.length > 300) deskripsi = deskripsi.slice(0,300).trim() + '...';
-        const raw = `Halo RanziroStore,
-
-Saya tertarik dengan akun berikut:
-• Nama Akun: ${nama}
-• ID Akun: ${idAkun}
-• Deskripsi: ${deskripsi || '-'}
-• Harga: ${harga || '-' }
-• Link: ${pageUrl}
-
-Jika akun masih tersedia, mohon konfirmasi. Terima kasih.`;
-        return `https://wa.me/${phone}?text=` + encodeURIComponent(raw);
-      })(detail, namaRaw);
-      const waEl = document.getElementById('chat-penjual');
-      if (waEl) waEl.href = waLink;
-    } catch (e) { console.warn('Gagal set chat link:', e); }
-
   } catch (err) {
     console.error('Gagal load detail akun:', err);
     setText('.nama-akun', 'Gagal memuat data');
@@ -636,7 +250,7 @@ function formatStatus(status) {
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
-<!-- external scripts kept as-is -->
+<!-- external scripts -->
 <script src="js/logic.js"></script>
 <script src="js/falling_box.js"></script>
 <script src="js/scroll_top.js"></script>
