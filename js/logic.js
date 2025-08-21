@@ -83,7 +83,7 @@
     const gambar = akun.gambar ? '/img/' + akun.gambar : '/img/placeholder.webp';
     const name = escapeHtml(akun.nama_akun || akun.id_akun || 'Akun');
     const id = escapeHtml(akun.id_akun || '');
-    const href = 'https://ranziro-store-server.vercel.app/akun?nama_akun=' + encodeURIComponent(akun.nama_akun || akun.id_akun || '');
+    const href = 'https://ranziro-store.vercel.app/akun?nama_akun=' + encodeURIComponent(akun.nama_akun || akun.id_akun || '');
     return `
       <a href="${href}" class="flex gap-3 items-center p-2 hover:bg-gray-700 transition">
         <img src="${escapeHtml(gambar)}" alt="${name}" class="w-12 h-12 object-cover rounded" />
@@ -114,7 +114,7 @@
     showOverlay();
     resultsContainer.innerHTML = renderLoading();
     openSearch();
-    fetchData('https://ranziro-store-server.vercel.app/api/akun?sort=terbaru', null, true);
+    fetchData('https://ranziro-store.vercel.app/api/akun?sort=terbaru', null, true);
   }
 
   function performSearch(q) {

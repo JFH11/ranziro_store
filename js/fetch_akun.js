@@ -61,7 +61,7 @@ function appendCards(status, startIdx, endIdx) {
 
     // create anchor card
     const a = document.createElement('a');
-    a.href = `https://ranziro-store-server.vercel.app/akun?nama_akun=${encodedName}`;
+    a.href = `https://ranziro-store.vercel.app/akun?nama_akun=${encodedName}`;
     a.className = 'account-card relative group w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-md bg-gray-800 transition-all cursor-pointer focus:outline-none';
     a.setAttribute('role', 'link');
 
@@ -140,7 +140,7 @@ function renderCards(status) {
 async function loadAkun() {
   try {
     const sort = localStorage.getItem('sort_preference') || 'terbaru';
-    const res = await fetch(`https://ranziro-store-server.vercel.app/api/akun?sort=${encodeURIComponent(sort)}`);
+    const res = await fetch(`https://ranziro-store.vercel.app/api/akun?sort=${encodeURIComponent(sort)}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
